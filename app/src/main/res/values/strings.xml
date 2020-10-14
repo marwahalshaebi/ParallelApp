@@ -5,4 +5,9 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="email2">Email</string>
+    <string name="new_here_create_account">New Here? Create Account</string>
+    <string name="login2">Login</string>
+    <string name="already_have_an_acount_login_here">Already have an acount? Login Here</string>
 </resources>
