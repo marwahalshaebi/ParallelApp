@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "813579795260",
+    "firebase_url": "https://parallelapp-706bd.firebaseio.com",
+    "project_id": "parallelapp-706bd",
+    "storage_bucket": "parallelapp-706bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813579795260:android:0673f81aa893f5e63a7c39",
+        "android_client_info": {
+          "package_name": "com.example.parallel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813579795260-lior6itep2btfbmm1sfndp47q42jeh89.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjF9HLCJlPf14EyOLvnS83Lt-jw2igXFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813579795260-lior6itep2btfbmm1sfndp47q42jeh89.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
