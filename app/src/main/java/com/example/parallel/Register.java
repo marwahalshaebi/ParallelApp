@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class Register extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mFullName,mEmail,mPassword;
+    EditText mFullName,mEmail,mPassword, mlicenseNumber;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
@@ -45,6 +45,7 @@ public class Register extends AppCompatActivity {
         mPassword   = findViewById(R.id.password);
         mRegisterBtn= findViewById(R.id.registerBtn);
         mLoginBtn   = findViewById(R.id.createText);
+        mlicenseNumber = findViewById(R.id.licenseNumber);
 
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
@@ -60,9 +61,15 @@ public class Register extends AppCompatActivity {
                 final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
                 final String fullName = mFullName.getText().toString();
+                String licNumber = mlicenseNumber.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is Required.");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(licNumber)) {
+                    mlicenseNumber.setError("License Number is Required.");
                     return;
                 }
 

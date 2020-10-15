@@ -2,6 +2,7 @@
     <string name="app_name">Parallel</string>
     <string name="sign_up">Sign Up</string>
     <string name="full_name">Full Name</string>
+    <string name="licenseNumber">License Number</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="register">Register</string>
