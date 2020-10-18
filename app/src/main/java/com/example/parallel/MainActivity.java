@@ -26,4 +26,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),Login.class));
         finish();
     }
+    public void getStarted(View view) {
+        startActivity(new Intent(getApplicationContext(),Map.class));
+    }
 }
