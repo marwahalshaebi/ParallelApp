@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import android.os.Bundle;
 
-public class Login extends AppCompatActivity {
+class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
     Button mLoginBtn;
     TextView mCreateBtn, forgotTextLink;
