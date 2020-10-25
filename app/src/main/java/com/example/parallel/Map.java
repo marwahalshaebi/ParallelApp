@@ -26,6 +26,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
     }
 
+    // sets map location to ottawa, must change to implement location services 
     @Override
     public void onMapReady(GoogleMap googleMap){
         mapAPI = googleMap;
