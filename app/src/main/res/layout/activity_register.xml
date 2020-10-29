@@ -28,11 +28,13 @@
         android:ems="10"
         android:hint="@string/full_name"
         android:inputType="textPersonName"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintVertical_bias="0.19"
+        android:background="@drawable/txt_round"/>
 
     <EditText
         android:id="@+id/email"
@@ -40,16 +42,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullName"
         app:layout_constraintVertical_bias="0.05"
-        android:autofillHints="" />
+        android:background="@drawable/txt_round"/>
 
     <EditText
         android:id="@+id/password"
@@ -57,16 +61,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
+        android:autofillHints=""
+        android:background="@drawable/txt_round"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.295"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.295" />
 
     <Button
         android:id="@+id/registerBtn"
@@ -74,7 +80,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
+        android:background="@drawable/btn_rounded"
         android:text="@string/register"
+        android:textColor="#EDE9E9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -87,6 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/already_have_an_acount_login_here"
+        android:textColor="#373636"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,9 +121,11 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="20dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/licenseNumber"
         android:inputType="textPersonName"
+        android:textAlignment="center"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,6 +133,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
         tools:visibility="visible"
-        android:autofillHints="" />
+        android:background="@drawable/txt_round"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
