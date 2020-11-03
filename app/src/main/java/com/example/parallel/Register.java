@@ -21,6 +21,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.HashMap;
@@ -35,6 +37,7 @@ public class Register extends AppCompatActivity {
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     String userID;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class Register extends AppCompatActivity {
                 final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
                 final String fullName = mFullName.getText().toString();
-                String licNumber = mlicenseNumber.getText().toString().trim();
+                final String licNumber = mlicenseNumber.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is Required.");
@@ -92,7 +95,17 @@ public class Register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            // Write a message to the database
+                            user = new User(fullName, email, licNumber);
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference().child("User");
+
+                            myRef.child(email.replaceAll("[.]","-")).setValue(user);
+                            Toast.makeText(Register.this, "Data sent to the database " , Toast.LENGTH_LONG).show();
+
+                            startActivity((new Intent(getApplicationContext(), MainActivity.class).putExtra("email", email.replaceAll("[.]","-"))));
+                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
                         } else {
                             Toast.makeText(Register.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
