@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         this.emailExtra = getIntent().getStringExtra("email");
         this.nameText = findViewById(R.id.nameTextView);
         //this.nameText.setText("Hi "+emailExtra);
-        
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("User").child(this.emailExtra);
