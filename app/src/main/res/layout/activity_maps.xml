@@ -1,12 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Map">
+
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/address"-->
+    <!--        android:layout_width="300dp"-->
+    <!--        android:layout_height="wrap_content"-->
+
+    <!--        android:layout_marginEnd="100dp"-->
+    <!--        android:autofillHints=""-->
+    <!--        android:background="@drawable/txt_round"-->
+    <!--        android:backgroundTint="#F3EFEF"-->
+    <!--        android:ems="10"-->
+    <!--        android:hint="@string/where_to"-->
+    <!--        android:inputType="textPostalAddress"-->
+    <!--        android:textAlignment="center"-->
+    <!--        android:textColor="#090909"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/mapAPI"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.028" />-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/Find"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@drawable/btn_rounded"-->
+    <!--        android:text="Find"-->
+    <!--        android:textColor="#FFFFFF"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/address"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="1.0"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/address"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="1.0" />-->
+
+    <SearchView
+        android:id="@+id/sv_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/search_rnd"
+        android:elevation="5dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search.."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mapAPI"
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <fragment
+        android:id="@+id/mapAPI"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/mapAPI"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="-16dp"
+         />
+
+    <ImageButton
+        android:id="@+id/locationBtn"
+        android:layout_width="36dp"
+        android:layout_height="47dp"
+        android:contentDescription="TODO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_location"
+        app:layout_constraintVertical_bias="0.903"
+        app:srcCompat="@drawable/loc_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

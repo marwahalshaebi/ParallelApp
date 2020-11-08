@@ -13,4 +13,7 @@
     <string name="already_have_an_acount_login_here">Already have an acount? Login Here</string>
     <string name="title_activity_maps">Map</string>
     <string name="nameText">Undefined</string>
+    <string name="where_to">Where To</string>
+
+    <string name="locBtn"> </string>
 </resources>
