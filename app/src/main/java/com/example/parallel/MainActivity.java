@@ -20,9 +20,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 public class MainActivity extends AppCompatActivity {
     private TextView nameText;
     private String emailExtra;
+    private static final String FILE_NAME = "app/src/main/assets/OTTAWA_STREET_PARKING.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
     public void getStarted(View view) {
+
+
         startActivity(new Intent(getApplicationContext(),Map.class));
     }
 }
