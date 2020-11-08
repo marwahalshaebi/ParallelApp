@@ -35,7 +35,8 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth fAuth;
 
-
+//On Create : Sends user information to be authorization
+    //OnCreate: Creates a New User and Sends user information to be authorization
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +87,7 @@ public class Login extends AppCompatActivity {
                             Toast.makeText(Login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
-
+//FirebaseAuth Method
                     }
                 });
 

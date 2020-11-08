@@ -1,5 +1,6 @@
 package com.example.parallel;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentActivity;
@@ -49,6 +50,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.SearchView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -69,6 +74,9 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     private static final int REQUEST_LOCATION_PERMISSION = 1;
     Marker marker;
     LocationListener locationListener;
+    SearchView searchView;
+    ImageButton locBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +87,14 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.mapAPI);
         mapFragment.getMapAsync(this);
 
+        searchView = findViewById(R.id.sv_location);
+        locBtn = findViewById(R.id.locationBtn);
+        final double[] latitude = new double[1];
+        final double[] longitude = new double[1];
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -92,7 +105,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
             //return;
-        }else{
+        } else {
 
             locationListener = new LocationListener() {
                 @Override
@@ -101,48 +114,119 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                     float zoomLevel = 15f;
 
                     //get the latitude
-                    double latitude = location.getLatitude();
+                    latitude[0] = location.getLatitude();
 
                     //get the longitude
-                    double longitude = location.getLongitude();
+                    longitude[0] = location.getLongitude();
 
                     //Instantiate the class Geocoder, converting lat long to meaningful addresses locations
                     Geocoder geocoder = new Geocoder(getApplicationContext());
                     try {
-                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
+                        List<Address> addressList = geocoder.getFromLocation(latitude[0], longitude[0], 1);
                         String strResult = addressList.get(0).getLocality() + " : ";
                         strResult += addressList.get(0).getCountryName();
 
-                        LatLng latLng = new LatLng(latitude, longitude);
-                        if(marker != null){
+                        LatLng latLng = new LatLng(latitude[0], longitude[0]);
+                        if (marker != null) {
                             marker.remove();
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
-                        }else{
+                            //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                        } else {
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                         }
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) { }
 
                 @Override
-                public void onProviderEnabled(String provider) { }
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
 
                 @Override
-                public void onProviderDisabled(String provider) {}
+                public void onProviderEnabled(String provider) {
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+                }
+
+
 
             };
 
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                String location = searchView.getQuery().toString();
+                List<Address> addressList = null;
+                float zoomLevel = 15f;
+
+                if (location != null || !location.equals("")) {
+                    Geocoder geocoder = new Geocoder(Map.this);
+                    try {
+                        addressList = geocoder.getFromLocationName(location, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Address address = addressList.get(0);
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
+        locBtn.setOnClickListener(new View.OnClickListener() {
+
+            @SuppressLint("MissingPermission")
+            @Override
+
+            public void onClick(View v) {
+
+                float zoomLevel = 15f;
+                Geocoder geocoder = new Geocoder(getApplicationContext());
+                try {
+                    List<Address> addressList = geocoder.getFromLocation(latitude[0], longitude[0], 1);
+                    String strResult = addressList.get(0).getLocality() + " : ";
+                    strResult += addressList.get(0).getCountryName();
+
+                    LatLng latLng = new LatLng(latitude[0], longitude[0]);
+                    if (marker != null) {
+                        marker.remove();
+                        marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
+                        mMap.setMaxZoomPreference(20);
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                    } else {
+                        marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
+                        mMap.setMaxZoomPreference(20);
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+
+
 
 
 /*
@@ -218,9 +302,11 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
          */
     }
 
+
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(@NonNull Location location) {
@@ -241,12 +327,12 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                         strResult += addressList.get(0).getCountryName();
 
                         LatLng latLng = new LatLng(latitude, longitude);
-                        if(marker != null){
+                        if (marker != null) {
                             marker.remove();
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
-                        }else{
+                        } else {
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
@@ -256,14 +342,18 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                         e.printStackTrace();
                     }
                 }
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) { }
 
                 @Override
-                public void onProviderEnabled(String provider) { }
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
 
                 @Override
-                public void onProviderDisabled(String provider) {}
+                public void onProviderEnabled(String provider) {
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+                }
 
             };
 
@@ -293,6 +383,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ottawa, zoomLevel ));
+
 */
     }
 
