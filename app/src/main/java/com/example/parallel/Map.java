@@ -384,6 +384,8 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ottawa, zoomLevel ));
 
+
+
 */
     }
 
