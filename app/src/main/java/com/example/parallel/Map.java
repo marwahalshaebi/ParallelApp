@@ -66,6 +66,51 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
+import android.os.Bundle;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import androidx.annotation.DrawableRes;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import java.util.ArrayList;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 public class Map extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -76,6 +121,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     LocationListener locationListener;
     SearchView searchView;
     ImageButton locBtn;
+    private  Geocoder geocoder;
 
 
     @Override
@@ -372,21 +418,57 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     @Override
+
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        //float zoomLevel = 15f; //10.2f;
-
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
-/*        LatLng ottawa = new LatLng(45.4215, -75.6972);
+        LatLng ottawa = new LatLng(45.4215, -75.6972);
         mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ottawa, zoomLevel ));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ottawa, 15.0f));
+
+        String line = " ";
+        File myExternalFile = new File(Environment.getExternalStorageDirectory(), "/OTTAWA_STREET_PARKING.txt");
+        try {
+            // read from the external file and produce output, no java collection created.
+            BufferedReader br = new BufferedReader(new FileReader(myExternalFile));
+
+            while((line = br.readLine()) != null){
+                List<Address> addresses = geocoder.getFromLocationName(line, 1);
+
+                // if statement checks if the address provided is not null (prevents out of bounds exception)
+                if((addresses.size() != 0) && (addresses.get(0) != null)) {
+                    Address address = addresses.get(0);
+                    // code below gets the geo code and marks it on the map
+                    mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(address.getLatitude(), address.getLongitude()))
+                            .title("Park Here"));
+                //.icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.marker)));
+                }
+
+            }
+
+            // good practice to close buffer
+            br.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
+    }
 
-*/
+    // Creates the customized pin for parking spots
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResID){
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResID);
+        vectorDrawable.setBounds(0,0,vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw((canvas));
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
     @Override
