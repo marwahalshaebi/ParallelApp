@@ -4,12 +4,15 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" ></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" ></uses-permission>
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <!-- this code is a work around google maps versions bug that doesn't allow the map to show due to conflict-->
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>

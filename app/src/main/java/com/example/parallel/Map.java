@@ -62,7 +62,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     LocationListener locationListener;
     SearchView searchView;
     ImageButton locBtn;
-    private  Geocoder geocoder;
+    //private  Geocoder geocoder;
 
 
     @Override
@@ -369,11 +369,14 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
 
         String line = " ";
         File myExternalFile = new File(Environment.getExternalStorageDirectory(), "/OTTAWA_STREET_PARKING.txt");
+        Geocoder geocoder = new Geocoder(getApplicationContext());
         try {
             // read from the external file and produce output, no java collection created.
             BufferedReader br = new BufferedReader(new FileReader(myExternalFile));
+            System.out.print(br);
 
             while((line = br.readLine()) != null){
+                System.out.print(line);
                 List<Address> addresses = geocoder.getFromLocationName(line, 1);
 
                 // if statement checks if the address provided is not null (prevents out of bounds exception)
