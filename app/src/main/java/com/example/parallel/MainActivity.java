@@ -28,29 +28,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//
+//        this.emailExtra = getIntent().getStringExtra("email");
+//        this.nameText = findViewById(R.id.nameTextView);
+//        //this.nameText.setText("Hi "+emailExtra);
+//
+//
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference().child("User").child(this.emailExtra);
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.child("fullName").getValue() != null){
+//                    nameText.setText("Hi "+ snapshot.child("fullName").getValue().toString());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
 
-        this.emailExtra = getIntent().getStringExtra("email");
-        this.nameText = findViewById(R.id.nameTextView);
-        //this.nameText.setText("Hi "+emailExtra);
-
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("User").child(this.emailExtra);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("fullName").getValue() != null){
-                    nameText.setText("Hi "+ snapshot.child("fullName").getValue().toString());
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+}
  // this is the welcome page
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();//logout

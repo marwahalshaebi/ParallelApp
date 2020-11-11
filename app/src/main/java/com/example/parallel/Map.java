@@ -60,9 +60,12 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     private static final int REQUEST_LOCATION_PERMISSION = 1;
     Marker marker;
     LocationListener locationListener;
+    Location destinationLocation=null;
+    protected LatLng start=null;
+    protected LatLng end=null;
     SearchView searchView;
     ImageButton locBtn;
-    //private  Geocoder geocoder;
+
 
 
     @Override
@@ -114,11 +117,12 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                         strResult += addressList.get(0).getCountryName();
 
                         LatLng latLng = new LatLng(latitude[0], longitude[0]);
+                        start=latLng;
                         if (marker != null) {
                             marker.remove();
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
-                            //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                         } else {
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
@@ -154,20 +158,32 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 String location = searchView.getQuery().toString();
-                List<Address> addressList = null;
+                List<Address> addressList;
                 float zoomLevel = 15f;
 
                 if (location != null || !location.equals("")) {
                     Geocoder geocoder = new Geocoder(Map.this);
                     try {
                         addressList = geocoder.getFromLocationName(location, 1);
+
+                        String strResult = addressList.get(0).getLocality() + " : ";
+                        strResult += "Ottawa" + "Canada";
+                        Address address = addressList.get(0);
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        if (marker != null) {
+                            marker.remove();
+                            marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
+                            mMap.setMaxZoomPreference(20);
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                        } else {
+                            marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
+                            mMap.setMaxZoomPreference(20);
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    Address address = addressList.get(0);
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+
 
                 }
                 return false;
@@ -211,82 +227,6 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
             }
         });
 
-
-
-
-
-
-/*
-        //checking if the network provider is enabled
-        if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    //zoomLevel to magnify user location on map
-                    float zoomLevel = 15f;
-
-                    //get the latitude
-                    double latitude = location.getLatitude();
-
-                    //get the longitude
-                    double longitude = location.getLongitude();
-
-                    //Instantiate the class LatLng
-                    LatLng latLng = new LatLng(latitude, longitude);
-
-                    //Instantiate the class Geocoder, converting lat long to meaningful addresses
-                    Geocoder geocoder = new Geocoder(getApplicationContext());
-                    try {
-                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-                        String str = addressList.get(0).getLocality() + ",";
-                        str += addressList.get(0).getCountryName();
-
-                        mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-
- */
-        /*
-        else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    //zoomLevel to magnify user location on map
-                    float zoomLevel = 15f;
-
-                    //get the latitude
-                    double latitude = location.getLatitude();
-
-                    //get the longitude
-                    double longitude = location.getLongitude();
-
-                    //Instantiate the class LatLng
-                    LatLng latLng = new LatLng(latitude, longitude);
-
-                    //Instantiate the class Geocoder, converting lat long to meaningful addresses
-                    Geocoder geocoder = new Geocoder(getApplicationContext());
-                    try {
-                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-                        String str = addressList.get(0).getLocality() + ",";
-                        str += addressList.get(0).getCountryName();
-
-                        mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-
-         */
     }
 
 
@@ -318,11 +258,11 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                             marker.remove();
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                         } else {
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                         }
 
                     } catch (IOException e) {
@@ -386,6 +326,14 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Park Here").icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.marker)));
+//                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                        @Override
+//                        public boolean onMarkerClick(Marker m) {
+//                            end=m.getPosition();
+//                            start=m.getPosition();
+//                            return true;
+//                        }
+//                    });
                 }
 
             }
@@ -402,6 +350,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
 
 
     }
+
 
     // Creates the customized pin for parking spots
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResID){
