@@ -23,6 +23,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private TextView nameText;
     private String emailExtra;
+    public static final String CHANNEL_ID = "Parallel App";
+    private static final String CHANNEL_NAME = "Main Activity";
+    private static final String CHANNEL_DESC = "Simplified Coding Notifications";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 //                    nameText.setText("Hi "+ snapshot.child("fullName").getValue().toString());
 //                }
 //
-//            }
+//            }-+
 //
 //            @Override
 //            public void onCancelled(@NonNull DatabaseError error) {
