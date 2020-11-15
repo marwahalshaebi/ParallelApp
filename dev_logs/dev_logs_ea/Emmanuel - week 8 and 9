@@ -1,0 +1,2 @@
+Worked on setting up ability to send notifications using FCM.
+Deployed a REST API to Firebase to facilitate recieving and send notifications via firebase.
