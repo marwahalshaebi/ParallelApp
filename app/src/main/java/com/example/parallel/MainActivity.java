@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +24,12 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private TextView nameText;
     private String emailExtra;
-
+    private ImageView mProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//
+        mProfile = findViewById(R.id.Profile);
 //        this.emailExtra = getIntent().getStringExtra("email");
 //        this.nameText = findViewById(R.id.nameTextView);
 //        //this.nameText.setText("Hi "+emailExtra);
@@ -49,14 +50,15 @@ public class MainActivity extends AppCompatActivity {
 //            public void onCancelled(@NonNull DatabaseError error) {
 //
 //            }
-
-}
- // this is the welcome page
-    public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();//logout
-        startActivity(new Intent(getApplicationContext(),Login.class));
-        finish();
+        mProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),UserProfile.class));
+            }
+        });
     }
+ // this is the welcome page
+
     public void getStarted(View view) {
         startActivity(new Intent(getApplicationContext(),Map.class));
     }

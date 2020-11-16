@@ -16,4 +16,17 @@
     <string name="where_to">Where To</string>
 
     <string name="locBtn"> </string>
+    <string name="get_started">Get Started</string>
+    <string name="logout">logout</string>
+    <string name="reg">Register</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="your_name">Your Name</string>
+    <string name="name">Full Name</string>
+    <string name="your_email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="log">Logout</string>
+    <string name="licence_number">Licence Number</string>
+    <string name="your_email_address">Your Email Address</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="change_profile">Change Profile</string>
 </resources>

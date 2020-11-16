@@ -15,7 +15,9 @@ public class User {
         this.fullName = fullName;
         this.email = email;
         this.licenseNumber = licenseNumber;
+
     }
+
 
     public String getLicenseNumber() {
         return licenseNumber;

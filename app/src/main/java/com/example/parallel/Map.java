@@ -122,7 +122,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                             marker.remove();
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                           // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                         } else {
                             marker = mMap.addMarker(new MarkerOptions().position(latLng).title(strResult));
                             mMap.setMaxZoomPreference(20);
@@ -326,14 +326,14 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Park Here").icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.marker)));
-//                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//                        @Override
-//                        public boolean onMarkerClick(Marker m) {
-//                            end=m.getPosition();
-//                            start=m.getPosition();
-//                            return true;
-//                        }
-//                    });
+                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(Marker m) {
+                            end=m.getPosition();
+                            start=m.getPosition();
+                        return true;
+                        }
+                    });
                 }
 
             }

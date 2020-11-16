@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.HashMap;
@@ -31,7 +32,7 @@ import java.util.Map;
 
 public class Register extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mFullName,mEmail,mPassword, mlicenseNumber;
+    EditText mFullName,mEmail,mPassword, mLicenseNumber;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
@@ -47,8 +48,9 @@ public class Register extends AppCompatActivity {
         mEmail      = findViewById(R.id.email);
         mPassword   = findViewById(R.id.password);
         mRegisterBtn= findViewById(R.id.registerBtn);
-        mLoginBtn   = findViewById(R.id.createText);
-        mlicenseNumber = findViewById(R.id.licenseNumber);
+        mLoginBtn   = findViewById(R.id.loginText);
+        mLicenseNumber = findViewById(R.id.licenseNumber);
+
 
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
@@ -65,7 +67,8 @@ public class Register extends AppCompatActivity {
                 final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
                 final String fullName = mFullName.getText().toString();
-                final String licNumber = mlicenseNumber.getText().toString().trim();
+                final String licNumber = mLicenseNumber.getText().toString().trim();
+       
 
                 if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is Required.");
@@ -73,7 +76,7 @@ public class Register extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(licNumber)) {
-                    mlicenseNumber.setError("License Number is Required.");
+                    mLicenseNumber.setError("License Number is Required.");
                     return;
                 }
 
@@ -96,11 +99,12 @@ public class Register extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
                             // Write a message to the database
-                            user = new User(fullName, email, licNumber);
+
+                            user = new User(fullName, email, licNumber );
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference myRef = database.getReference().child("User");
 
-                            myRef.child(email.replaceAll("[.]","-")).setValue(user);
+                            myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
                             Toast.makeText(Register.this, "Data sent to the database " , Toast.LENGTH_LONG).show();
 
                             startActivity((new Intent(getApplicationContext(), MainActivity.class).putExtra("email", email.replaceAll("[.]","-"))));
@@ -116,6 +120,11 @@ public class Register extends AppCompatActivity {
             }
         });
 
-
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Login.class));
+            }
+        });
     }
 }
