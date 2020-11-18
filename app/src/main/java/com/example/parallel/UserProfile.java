@@ -25,7 +25,7 @@ public class UserProfile extends AppCompatActivity {
     private ImageView mBack;
     private String userID;
     private DatabaseReference reference;
-    Button log;
+    Button log, edit;
     ImageView profileImage;
 
 
@@ -38,7 +38,8 @@ public class UserProfile extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("User");
         userID = user.getUid();
-        log = findViewById(R.id.changeProfile);
+        log = findViewById(R.id.logoutProfile);
+        edit = findViewById(R.id.editProfile);
         System.out.print(userID);
 
         profileImage= findViewById(R.id.profileImage);
@@ -74,6 +75,13 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),EditProfile.class));
             }
         });
 
