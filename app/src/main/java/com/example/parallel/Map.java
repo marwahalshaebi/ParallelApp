@@ -352,6 +352,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     }
 
 
+
     // Creates the customized pin for parking spots
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResID){
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResID);
