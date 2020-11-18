@@ -26,6 +26,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
@@ -47,6 +48,12 @@ import java.io.FileReader;
 import androidx.core.content.ContextCompat;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import android.os.Environment;
 
 
@@ -65,6 +72,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     protected LatLng end=null;
     SearchView searchView;
     ImageButton locBtn;
+
 
 
 
@@ -292,67 +300,67 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * This is where we can add markers or lines, add listeners or move the camera.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
+     * This method marks parking locations on the map for users to select from.
      */
     @Override
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         LatLng ottawa = new LatLng(45.4215, -75.6972);
-        mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ottawa, 15.0f));
+       mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
+       mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ottawa, 15.0f));
 
         String line = " ";
-        File myExternalFile = new File(Environment.getExternalStorageDirectory(), "/OTTAWA_STREET_PARKING.txt");
+
         Geocoder geocoder = new Geocoder(getApplicationContext());
-        try {
-            // read from the external file and produce output, no java collection created.
-            BufferedReader br = new BufferedReader(new FileReader(myExternalFile));
-            System.out.print(br);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Street Parking");
 
-            while((line = br.readLine()) != null){
-                System.out.print(line);
-                List<Address> addresses = geocoder.getFromLocationName(line, 1);
 
-                // if statement checks if the address provided is not null (prevents out of bounds exception)
-                if((addresses.size() != 0) && (addresses.get(0) != null)) {
-                    Address address = addresses.get(0);
-                    // code below gets the geo code and marks it on the map
+        // Reading Data from the firebase and marking it on the map.
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot1 : snapshot.getChildren()){
+                    // read from firebase the longitude + latitude values from each addresses.
+                    Double longi = Double.valueOf(String.valueOf(dataSnapshot1.child("longitude").getValue()));
+                    Double latit = Double.valueOf(String.valueOf(dataSnapshot1.child("latitude").getValue()));
                     mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(address.getLatitude(), address.getLongitude()))
-                            .title("Park Here").icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.marker)));
-                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                        @Override
-                        public boolean onMarkerClick(Marker m) {
-                            end=m.getPosition();
-                            start=m.getPosition();
-                        return true;
-                        }
-                    });
-                }
+                            .position(new LatLng(latit, longi))
+                            .title("PARK HERE").icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.marker)));
 
+                }
             }
 
-            // good practice to close buffer
-            br.close();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+            }
+        });
+
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker m) {
+                end=m.getPosition();
+                start=m.getPosition();
+                return true;
+            }
+        });
 
 
     }
 
 
-    // Creates the customized pin for parking spots
+
+
+
+
+    // Creates the customized pins for parking spots
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResID){
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResID);
         vectorDrawable.setBounds(0,0,vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
@@ -361,6 +369,10 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         vectorDrawable.draw((canvas));
 
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    private void findNearbyLocations(){
+
     }
 
     @Override
