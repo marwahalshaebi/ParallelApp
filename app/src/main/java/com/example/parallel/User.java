@@ -104,7 +104,7 @@ public class User {
 //                    });
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://androidnotificationtutorial.firebaseapp.com/api/")
+                .baseUrl("https://parallel3004.firebaseapp.com/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
