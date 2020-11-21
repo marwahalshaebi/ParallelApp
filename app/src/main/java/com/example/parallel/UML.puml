@@ -1,7 +1,7 @@
 @startuml
 
 
-Class Controller.User{
+Class User{
 -fullName : String
 -email : String
 -licenseNumber: String
@@ -14,7 +14,7 @@ Class Controller.User{
 
 }
 
-Class Controller.Register{
+Class Register{
 -mFullName: EditText
 -mEmail: EditText
 -mPassword: EditText
@@ -27,7 +27,7 @@ user : User
 #onCreate()
 }
 
-Class Controller.Login{
+Class Login {
 -mEmail: EditText
 -mPassword: EditText
 -mLoginBtn: Button
@@ -39,7 +39,7 @@ Class Controller.Login{
 #onCreate()
 }
 
-class Controller.MainActivity{
+class MainActivity {
 -nameText: TextView
 -emailExtra: String
 -mProfile: ImageView
@@ -48,7 +48,7 @@ class Controller.MainActivity{
 +getStarted()
 }
 
-class Controller.UserProfile{
+class UserProfile{
 -user: FirebaseUser
 -mBack: ImageView
 -userID: String
@@ -59,7 +59,7 @@ class Controller.UserProfile{
 #onCreate()
 }
 
-Class Controller.ForgotPassword{
+Class ForgotPassword{
 -emailEdit: EditText
 -resetBtn: Button
 -progressBar:ProgressBar
@@ -69,7 +69,7 @@ Class Controller.ForgotPassword{
 -reset()
 }
 
-Class Controller.EditProfile{
+Class EditProfile {
 -user: FirebaseUser
 -mBack: ImageView
 -userID: String
@@ -79,7 +79,14 @@ Class Controller.EditProfile{
 #onCreate()
 }
 
-Class Controller.Map{
+Class MyFirebaseMessagingService{
++ token : String
+---
++ onNewToken(in token: String)
++ onMessageReceived(in remoteMessage: RemoteMessage)
+}
+
+Class Map{
 -searchView: SearchView
 -locBtn: ImageView
 -mMap: GoogleMap
@@ -96,7 +103,7 @@ Class Controller.Map{
 
 
 }
-Controller.User "1"<--- Controller.Register
+User "1"<--- Register
 
 
 
@@ -120,11 +127,34 @@ Class DatabaseReference{
 
 }
 
+Class FirebaseMessagingService{}
+
+FirebaseMessagingService <|------ MyFirebaseMessagingService
+
+FirebaseUser "1" <------ UserProfile
+FirebaseUser "1" <------ EditProfile
+
+FirebaseAuth "1"---- "0..*" Register
+FirebaseAuth "1"<---- Login
+FirebaseAuth "1"<---- ForgotPassword
+
+DatabaseReference "1" <----- Register
+DatabaseReference "1" <----- EditProfile
+DatabaseReference "1" <----- UserProfile
+DatabaseReference "1" <----- Map
+
 }
 
-package GoogleMaps <<Database>>{
-
+package GoogleMap <<Database>>{
+ Class GoogleMap{}
+ Class OnMapReadyCallback{}
+ OnMapReadyCallback <|...Map
+ GoogleMap "1" <----- Map
 }
+
+
+
+
 
 
 
