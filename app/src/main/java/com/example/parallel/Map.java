@@ -1,9 +1,6 @@
 package com.example.parallel;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentActivity;
@@ -29,7 +26,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 
-import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -59,7 +55,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.os.Environment;
-import android.widget.Toast;
+
+
 
 
 public class Map extends FragmentActivity implements OnMapReadyCallback {
@@ -314,12 +311,12 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng ottawa = new LatLng(45.4215, -75.6972);
-        mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ottawa, 15.0f));
+       mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
+       mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ottawa, 15.0f));
 
+        String line = " ";
 
-
-       // Geocoder geocoder = new Geocoder(getApplicationContext());
+        Geocoder geocoder = new Geocoder(getApplicationContext());
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Street Parking");
 
 
@@ -334,7 +331,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                     Double latit = Double.valueOf(String.valueOf(dataSnapshot1.child("latitude").getValue()));
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(latit, longi))
-                            .title(dataSnapshot1.getKey().toString()).icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.marker)));
+                            .title("PARK HERE").icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.marker)));
 
                 }
             }
@@ -346,40 +343,14 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         });
 
 
-
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker m) {
-                end = m.getPosition();
-                start = m.getPosition();
-
-                String markerTitle = m.getTitle();
-                AlertDialog.Builder parkingConfirmation = new AlertDialog.Builder(Map.this);
-
-                parkingConfirmation.setTitle("Are you sure?");
-                parkingConfirmation.setMessage("You selected to park at " + markerTitle + ". Do you want to proceed to payment?");
-                parkingConfirmation.setCancelable(false);
-                parkingConfirmation.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                      //  startActivity();
-
-                    }
-                });
-                parkingConfirmation.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-
-                AlertDialog confirmationWindow = parkingConfirmation.create();
-                confirmationWindow.show();
-
+                end=m.getPosition();
+                start=m.getPosition();
                 return true;
             }
         });
-
 
 
     }

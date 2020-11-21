@@ -32,12 +32,12 @@ import java.util.Map;
 
 public class Register extends AppCompatActivity {
     public static final String TAG = "TAG";
-    private EditText mFullName,mEmail,mPassword, mLicenseNumber;
-    private Button mRegisterBtn;
-    private TextView mLoginBtn;
-    private FirebaseAuth fAuth;
-    private ProgressBar progressBar;
-    private String userID;
+    EditText mFullName,mEmail,mPassword, mLicenseNumber;
+    Button mRegisterBtn;
+    TextView mLoginBtn;
+    FirebaseAuth fAuth;
+    ProgressBar progressBar;
+    String userID;
     User user;
 
     @Override

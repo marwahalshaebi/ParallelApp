@@ -29,11 +29,11 @@ import java.util.Map;
 import android.os.Bundle;
 
 public class Login extends AppCompatActivity {
-    private EditText mEmail, mPassword;
-    private Button mLoginBtn;
-    private TextView mCreateBtn, mforgotText;
-    private ProgressBar progressBar;
-    private FirebaseAuth fAuth;
+    EditText mEmail, mPassword;
+    Button mLoginBtn;
+    TextView mCreateBtn, mforgotText;
+    ProgressBar progressBar;
+    FirebaseAuth fAuth;
 
 //On Create : Sends user information to be authorization
     //OnCreate: Creates a New User and Sends user information to be authorization
