@@ -35,8 +35,8 @@ public class EditProfile extends AppCompatActivity {
     private ImageView mBack;
     private String userID;
     private DatabaseReference reference;
-    Button update;
-    ImageView profileImage;
+    private Button update;
+    private ImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

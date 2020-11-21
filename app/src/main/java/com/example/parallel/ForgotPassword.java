@@ -17,10 +17,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPassword extends AppCompatActivity {
-    EditText emailEdit;
-    Button resetBtn;
-    ProgressBar progressBar;
-    FirebaseAuth auth;
+    private EditText emailEdit;
+    private Button resetBtn;
+    private ProgressBar progressBar;
+    private FirebaseAuth auth;
 
 
     @Override

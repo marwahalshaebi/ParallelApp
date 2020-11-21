@@ -20,13 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class UserProfile extends AppCompatActivity {
-    private TextView mLogout;
     private FirebaseUser user;
     private ImageView mBack;
     private String userID;
     private DatabaseReference reference;
-    Button log, edit;
-    ImageView profileImage;
+    private Button log, edit;
+    private ImageView profileImage;
 
 
     @Override

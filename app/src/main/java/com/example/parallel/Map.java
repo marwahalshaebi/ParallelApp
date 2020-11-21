@@ -327,11 +327,21 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot1 : snapshot.getChildren()){
                     // read from firebase the longitude + latitude values from each addresses.
-                    Double longi = Double.valueOf(String.valueOf(dataSnapshot1.child("longitude").getValue()));
-                    Double latit = Double.valueOf(String.valueOf(dataSnapshot1.child("latitude").getValue()));
+
+                    final double lon = Double.valueOf(String.valueOf(dataSnapshot1.child("longitude").getValue()));
+                    final double lat = Double.valueOf(String.valueOf(dataSnapshot1.child("latitude").getValue()));
                     mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(latit, longi))
+                            .position(new LatLng(lat, lon))
                             .title("PARK HERE").icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.marker)));
+
+//                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                        @Override
+//                        public boolean onMarkerClick(Marker m) {
+//
+//                            return true;
+//                        }
+//                    });
+
 
                 }
             }
@@ -343,14 +353,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         });
 
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker m) {
-                end=m.getPosition();
-                start=m.getPosition();
-                return true;
-            }
-        });
+
 
 
     }

@@ -26,15 +26,9 @@ public class User {
     public void setLicenseNumber(String licenseNumber) {
         this.licenseNumber = licenseNumber;
     }
-
     public String getEmail() {
         return email;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getFullName() {
         return fullName;
     }
