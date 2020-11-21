@@ -317,7 +317,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ottawa, 15.0f));
 
-        String line = " ";
+
 
        // Geocoder geocoder = new Geocoder(getApplicationContext());
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Street Parking");
