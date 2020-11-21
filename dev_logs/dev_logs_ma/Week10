@@ -1,0 +1,15 @@
+
+
+Week 10:
+
+
+- I worked on optimizing the code that reads and pins the parking locations on the map. 
+moved the reading process from a text file (very expensive) to reading straight from a real time database. time rendering the locations went down from 7 minutes to 5 seconds. 
+
+- worked with AJ to prepare for the demo presentation 
+
+- I created a dialog box that communicates with the user where they are choosing to park at and whether they want to proceed to payment or not. 
+
+- Designed the architecture diagram for D3. 
+
+
