@@ -5,17 +5,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.io.IOException;
-import java.util.concurrent.Executor;
-
-import javax.security.auth.callback.CallbackHandler;
 
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -27,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class User {
 
     private String fullName, email, licenseNumber;
-    public String token;
+    private String token;
 
     public User() {
     }
@@ -68,61 +59,45 @@ public class User {
 
     private void setToken(String token) {this.token = token;};
 
-    private  void sendNotification(String title, String body){
+    private  void sendNotification(final String title, final String body){
 
-        this.token = FirebaseMessaging.getInstance().getToken().getResult();
-        Log.d("TOKEN", token);
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    public void onSuccess(TResult result){
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("FETCHING TOKEN", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl("https://parallel3004.firebaseapp.com/api/")
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        Api api = retrofit.create(Api.class);
+
+                        Call<ResponseBody> call = api.sendNotification(token, title, body);
+
+//                        call.enqueue(new Callback<ResponseBody>() { @Override
+//                            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
 //
-//                    }
-//                });
-//                    @Override
-//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                        if (task.isSuccessful()) {
-//                            String token = task.getResult().getToken();
-//                            setToken(token);
-//                            Log.d("TOKEN", "Refreshed token: " + token);
-//                        } else {
-//                            Log.d("TOKEN", "FAILED TO GET TOKEN");
-//                        }
-//                    }
-//                });
-//
-//        FirebaseInstallations.getToken()
-//                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                            if (task.isSuccessful()) {
-//                                String token = task.getResult().getToken();
-//                                setToken(token);
-//                                Log.d("TOKEN", "Refreshed token: " + token);
-//                            } else {
-//                                Log.d("TOKEN", "FAILED TO GET TOKEN");
 //                            }
-//                        }
-//                    });
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://parallel3004.firebaseapp.com/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Api api = retrofit.create(Api.class);
-
-        Call<ResponseBody> call = api.sendNotification(this.token, title, body);
-
-//        call.enqueue(new CallbackHandler<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) throws IOException {
-//                //Toast.makeText(SendNotificationActivity.this, response.body().string(), Toast.LENGTH_LONG).show();
-//            }
 //
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                            @Override
+//                            public void onFailure(Call<ResponseBody> call, Throwable t) {
 //
-//            }
-//        });
+//                            }
+//                        });
+
+
+                    }
+                });
+
 
     }
 
