@@ -26,6 +26,8 @@ public class UserProfile extends AppCompatActivity {
     String userID;
     DatabaseReference reference;
     Button log, edit;
+
+    //To be used later for user Profile image
     ImageView profileImage;
 
 
@@ -33,31 +35,52 @@ public class UserProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+
+        //mBack as named to take the user back to the UserProfile activity
         mBack = findViewById(R.id.back);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("User");
-        userID = user.getUid();
-        log = findViewById(R.id.logoutProfile);
-        edit = findViewById(R.id.editProfile);
-        System.out.print(userID);
 
+        //Getting instance of the user
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        //Getting a reference to the user database
+        reference = FirebaseDatabase.getInstance().getReference("User");
+
+        //get the user id of the current user to be used to later
+        userID = user.getUid();
+
+        //Logs the user out of the activity
+        log = findViewById(R.id.logoutProfile);
+
+        // Takes the user to the EditProfile activity
+        edit = findViewById(R.id.editProfile);
+
+
+        //To be used later for user Profile image
         profileImage= findViewById(R.id.profileImage);
 
+
+        // Getting references to the following textviews
         final TextView profileName =findViewById(R.id.profileName);
         final TextView profileEmail =  findViewById(R.id.profileEmail);
         final TextView profileLicense =findViewById(R.id.profileLicense);
 
+
+        //Here I am looking the users databases for the user that is logged in currently
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                //Once the user is found I get a snapshot of the user as user class
                 User userProfile = snapshot.getValue(User.class);
 
                 if (userProfile != null){
+                    // Here I am filling up the textviews with the users info (Name,email and License)
                     String fullName = userProfile.getFullName();
                     String email = userProfile.getEmail();
                     String license = userProfile.getLicenseNumber();
-                    System.out.print(email);
+
                     profileEmail.setText(email);
                     profileLicense.setText(license);
                     profileName.setText(fullName);
@@ -70,7 +93,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
-
+        //Takes you back to the Main activity
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +101,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
+        //Takes you to the EditProfile activity
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +109,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
+        //logs the User out of the app
         log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
