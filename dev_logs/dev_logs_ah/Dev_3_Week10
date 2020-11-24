@@ -1,0 +1,7 @@
+Week 10 progress (Abdaljabbar)
+
+- I add Implented UserProfile, giving a user the ability to see there user info and logout
+- Implemented EditProfile giving the user to change there name and license, but decided not to give them the ability to change their email
+- Also Implented the forgot password clickable which gives the user the ability to change there password once an email is provided
+- Worked on the design portion of D3 with emmanual
+- Next steps are to clean up my code making it more readable and assiting members on any part they are stuck on
