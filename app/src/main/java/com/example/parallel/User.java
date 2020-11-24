@@ -59,7 +59,7 @@ public class User {
 
     private void setToken(String token) {this.token = token;};
 
-    private  void sendNotification(final String title, final String body){
+    public  void sendNotification(final String title, final String body){
 
 
         FirebaseMessaging.getInstance().getToken()

@@ -26,7 +26,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+public class
+MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     public String token;
