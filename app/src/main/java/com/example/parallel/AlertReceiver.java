@@ -7,6 +7,7 @@ import android.content.Intent;
 public class AlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        //context.
         User user = new User();
         user.sendNotification("Your Time is almost up", "View your parking spot");
     }

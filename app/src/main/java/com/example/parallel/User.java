@@ -1,6 +1,7 @@
 package com.example.parallel;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -83,16 +84,16 @@ public class User {
 
                         Call<ResponseBody> call = api.sendNotification(token, title, body);
 
-//                        call.enqueue(new Callback<ResponseBody>() { @Override
-//                            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//                            }
-//                        });
+                        call.enqueue(new Callback<ResponseBody>() { @Override
+                            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                            System.out.println("========SUCCESS=========");
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                System.out.println("========FAILURE=========");
+                            }
+                        });
 
 
                     }
