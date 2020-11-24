@@ -58,8 +58,14 @@ public class EditProfile extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User userProfile = snapshot.getValue(User.class);
+                        if(userProfile != null && !editName.getText().toString().matches("") && !editLicense.getText().toString().matches("")) {
+                            String fullName = editName.getText().toString();
+                            String license = editLicense.getText().toString();
 
-                        if (userProfile != null && !editName.getText().toString().matches("")){
+                            reference.child(userID).child("fullName").setValue(fullName);
+                            reference.child(userID).child("licenseNumber").setValue(license);
+
+                        }else if (userProfile != null && !editName.getText().toString().matches("")){
                             String fullName = editName.getText().toString();
                             reference.child(userID).child("fullName").setValue(fullName);
 
@@ -68,6 +74,7 @@ public class EditProfile extends AppCompatActivity {
                             String license = editLicense.getText().toString();
                             reference.child(userID).child("licenseNumber").setValue(license);
                         }
+                        startActivity(new Intent(getApplicationContext(),UserProfile.class));
                     }
 
                     @Override

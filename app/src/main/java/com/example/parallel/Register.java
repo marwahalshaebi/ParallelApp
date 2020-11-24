@@ -107,8 +107,8 @@ public class Register extends AppCompatActivity {
                             myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
                             Toast.makeText(Register.this, "Data sent to the database " , Toast.LENGTH_LONG).show();
 
-                            startActivity((new Intent(getApplicationContext(), MainActivity.class).putExtra("email", email.replaceAll("[.]","-"))));
-                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
 
                         } else {
                             Toast.makeText(Register.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
