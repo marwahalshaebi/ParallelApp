@@ -1,0 +1,62 @@
+Week 0 - September 6 - 12
+	-	comp3004 Introductions and course outline share.
+	-	preparing Deliverable 0 for September 13
+	
+Week 1 - September 13 - 19
+	-	preliminary research on what implementations of parking apps already exist in industry, research and academia.
+		-	ie. Smart Parking Application : Tejal Lotlikar et al. 2016.
+	-	developed section on Functional and Non-Functionl requirements for Deliverable 1
+	-	group meeting attendance on September 17
+	
+Week 2 - September 20 - 26
+	-	production of Parallel app presentation video based on shared DOPE member feedback and findings for D1 report (September 19-21)
+	-	group meeting attendance on September 24.
+	
+Week 3 - September 27 - October 3
+	-	additional research on what implementations of parking apps already exist in industry, research and academia.
+		-	ie. ParkAssist Android Project : https://github.com/saurabhgupta07/ParkAssist/tree/master/app/src/main/java/com/androidproject/parkassist
+	-	reseach on Git and GitHub introductions and tutorials
+		-	ie. YouTube - Intro to Git and GitHub - CS50 : https://youtu.be/MJUJ4wbFm_A
+	-	group meeting attendance on October 1.
+
+
+Week 4 - October 4 - 10
+	-	research on Component Diagrams
+	-	collaboration on Deliverable 2 document, lots of work put into creating a good Component Diagram
+	-	group meeting attendance on October 4
+	-	group meeting attendance on October 8.
+	
+Week 5 - October 11 - 17
+	-	look into pros and cons of using Flutter as a framework to develop Parallel app
+		-	Flutter Parking Locator with Google Maps - Part 1 - https://youtu.be/Dme03oxZRU0
+		-	Flutter Parking Locator with Google Maps - Part 2 - https://youtu.be/YfQkOfm1OC0
+	-	start of map component/class of the Parallel app with Marwah Alshaebi
+	-	group meeting attendance on October 15.
+
+Week 6 - October 18 - 24
+	-	familiarize with Android Studio and Google Maps API with marker implementation of Parallel map
+	-	review conversations and updates on Parallel login page development
+	-	group meeting attendance on October 19.
+	-	group meeting attendance on October 22.
+
+Week 7 - October 25 - 31
+	-	work on implementation of user location and zooming-in feature of the map
+		-	ie. YouTube - https://youtu.be/Dme03oxZRU0S1E-Vrk60E by varghese
+	-	share and discussion of my parking ticket as a sample of data Parallel may need to consider to be effective
+	-	early discussion on the group development work in relation to architectural styles and design patterns
+	- 	group meeting attendance on October 29.
+	
+Week 8 - November 1 - 7
+	-	search and retrieve .csv file and SQL database of parking infractions in the City of Ottawa
+		-	refer to http://www.davidmckie.com/Tips%20working%20with%20the%20city%20of%20Ottawa%20parking%20ticket%20data.pdf
+		-	refer to https://comp3004-f20.slack.com/files/U0198JS8QCB/F01ERUHBRU0/dump20150816_ottawaparkingtickets.zip
+	-	search of parking datasets from other Canadian cities
+		-	ie. https://opendata.vancouver.ca/explore/dataset/parking-meters/table/
+	-	discussion on use of databases and datasets and its integration in Parallel.
+	-	group meeting attendance on November 2.
+	-	group meeting attendance on November 5.
+
+Week - November 8 - 14
+	-	missed adhoc meeting on November 14
+	-	prepare for Deliverable 2 as well as offer support/back-up to AJ for class presentation
+	-	group meeting on November 12
