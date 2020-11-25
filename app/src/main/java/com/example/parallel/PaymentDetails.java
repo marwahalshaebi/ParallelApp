@@ -1,6 +1,5 @@
 package com.example.parallel;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
