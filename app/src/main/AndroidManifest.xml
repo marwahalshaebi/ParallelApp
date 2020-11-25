@@ -19,9 +19,9 @@
         android:theme="@style/AppTheme">
 
         <!--PayPal-->
-        android:theme="@style/Theme.PayPalGateWay">
-        <activity android:name=".PaymentDetails"></activity>
-        <activity android:name=".MainPay">
+        <!--android:theme="@style/Theme.PayPalGateWay"> -->
+        <!--<activity android:name=".PaymentDetails"></activity> -->
+        <activity android:name=".PayGateway">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +31,7 @@
         <!--PayPal(end)-->
 
 
-        <activity android:name=".TimePicker"></activity>
+        <!-- <activity android:name=".TimePicker"></activity> -->
         <activity android:name=".EditProfile" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".UserProfile" /> <!-- this code is a work around google maps versions bug that doesn't allow the map to show due to conflict -->
