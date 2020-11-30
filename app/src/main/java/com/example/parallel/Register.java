@@ -31,6 +31,7 @@ import java.util.Map;
 
 
 public class Register extends AppCompatActivity {
+
     public static final String TAG = "TAG";
     EditText mFullName,mEmail,mPassword, mLicenseNumber;
     Button mRegisterBtn;
@@ -116,11 +117,10 @@ public class Register extends AppCompatActivity {
                             DatabaseReference myRef = database.getReference().child("User");
                             myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
 
+                            //
                             Toast.makeText(Register.this, "Data sent to the database " , Toast.LENGTH_LONG).show();
-
                             //Once this is done user is taken to the main activity
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
 
                         } else {
                             Toast.makeText(Register.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

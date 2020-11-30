@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentActivity;
@@ -76,8 +77,10 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     SearchView searchView;
     ImageButton locBtn;
 
+    final double[] latitude = new double[1];
+    final double[] longitude = new double[1];
 
-
+    public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +93,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
 
         searchView = findViewById(R.id.sv_location);
         locBtn = findViewById(R.id.locationBtn);
-        final double[] latitude = new double[1];
-        final double[] longitude = new double[1];
+
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -300,6 +302,20 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         }
     }
 
+    public int calculateDistanceInKilometer(double userLat, double userLng,
+                                            double venueLat, double venueLng) {
+
+        double latDistance = Math.toRadians(userLat - venueLat);
+        double lngDistance = Math.toRadians(userLng - venueLng);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(userLat)) * Math.cos(Math.toRadians(venueLat))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return (int) (Math.round(AVERAGE_RADIUS_OF_EARTH_KM * c));
+    }
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -312,6 +328,8 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     @Override
 
     public void onMapReady(GoogleMap googleMap) {
+
+        final double[] distance = new double[1];
         mMap = googleMap;
         LatLng ottawa = new LatLng(45.4215, -75.6972);
         mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
@@ -352,31 +370,46 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker m) {
-                end = m.getPosition();
-                start = m.getPosition();
+                 end = m.getPosition();
+                 start = m.getPosition();
 
-                String markerTitle = m.getTitle();
-                AlertDialog.Builder parkingConfirmation = new AlertDialog.Builder(Map.this);
+                    String markerTitle = m.getTitle();
+                    AlertDialog.Builder parkingConfirmation = new AlertDialog.Builder(Map.this);
 
-                parkingConfirmation.setTitle("Are you sure?");
-                parkingConfirmation.setMessage("You selected to park at " + markerTitle + ". Do you want to proceed to payment?");
-                parkingConfirmation.setCancelable(false);
-                parkingConfirmation.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //  startActivity();
+                    parkingConfirmation.setTitle("Are you sure?");
+                    parkingConfirmation.setMessage("You selected to park at " + markerTitle + ". Do you want to proceed to payment?");
+                    parkingConfirmation.setCancelable(false);
+                    parkingConfirmation.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //  startActivity();
 
-                    }
-                });
-                parkingConfirmation.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    parkingConfirmation.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
+                        }
+                    });
 
-                AlertDialog confirmationWindow = parkingConfirmation.create();
-                confirmationWindow.show();
+                    parkingConfirmation.setNeutralButton("DIRECTION", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            final Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("http://maps.google.com/maps?"
+                                            + "saddr="+ latitude[0]+","+ longitude[0] + "&daddr="+ end.latitude+","+end.longitude ));
+
+                            intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+
+                            startActivity(intent);
+
+                        }
+                    });
+
+                    AlertDialog confirmationWindow = parkingConfirmation.create();
+                    confirmationWindow.show();
+
 
                 return true;
             }
