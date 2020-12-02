@@ -1,6 +1,8 @@
 package com.example.parallel;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -132,6 +134,13 @@ public class PayGateway extends AppCompatActivity {
 
         if(requestCode == PAYPAL_REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
+                //code to trigger notification
+               /* AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(getApplicationContext(), AlertReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, 0);
+                long timeAtButtonClick = System.currentTimeMillis();
+                long time10 = 10 *1000;
+                alarmManager.set(AlarmManager.RTC_WAKEUP,timeAtButtonClick+time10,pendingIntent); */
                 Toast.makeText(this, "PAYMENT APPROVED.", Toast.LENGTH_LONG).show();
                 PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
                 if(confirm != null){

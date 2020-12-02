@@ -8,8 +8,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import okhttp3.Call;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -52,6 +53,7 @@ public class User {
         this.fullName = fullName;
     }
 
+
     public  void sendNotification(final String title, final String body){
 
 
@@ -74,7 +76,7 @@ public class User {
 
                         Api api = retrofit.create(Api.class);
 
-                        Call<ResponseBody> call = api.sendNotification(token, title, body);
+                        retrofit2.Call<ResponseBody> call = api.sendNotification(token, title, body);
 
                         call.enqueue(new Callback<ResponseBody>() { @Override
                         public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
@@ -93,4 +95,8 @@ public class User {
 
 
     }
+
+
+
+
 }

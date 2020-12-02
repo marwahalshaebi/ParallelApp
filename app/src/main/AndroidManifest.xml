@@ -26,17 +26,7 @@
         android:theme="@style/AppTheme">
 
 
-        <!--PayPal-->
-        <!--android:theme="@style/Theme.PayPalGateWay"> -->
-        <!--<activity android:name=".PaymentDetails"></activity> -->
-        <activity android:name=".PayGateway">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <!--PayPal(end)-->
 
 
         <!-- <activity android:name=".TimePicker"></activity> -->
@@ -80,6 +70,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--PayPal-->
+        <!--android:theme="@style/Theme.PayPalGateWay"> -->
+        <!--<activity android:name=".PaymentDetails"></activity> -->
+        <activity android:name=".PayGateway">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--PayPal(end)-->
+
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
