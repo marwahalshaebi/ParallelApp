@@ -1,0 +1,162 @@
+@startuml
+
+
+Class User{
+-fullName : String
+-email : String
+-licenseNumber: String
+--
++ getLicenseNumber(): String
++getEmail(): String
++getFullName(): String
++setLicenseNumber(inout licenseNumber: String)
++setFullName(inout fullName: String)
+
+}
+
+Class Register{
+-mFullName: EditText
+-mEmail: EditText
+-mPassword: EditText
+-mLicenseNumber:EditText
+-mRegisterBtn: Button
+-fAuth: FirebaseAuth
+-progressBar: ProgressBar
+user : User
+--
+#onCreate()
+}
+
+Class Login {
+-mEmail: EditText
+-mPassword: EditText
+-mLoginBtn: Button
+-mCreateBtn: TextView
+-mforgotText: TextView
+-progressBar: ProgressBar
+-fAuth: FirebaseAuth
+--
+#onCreate()
+}
+
+class MainActivity {
+-nameText: TextView
+-emailExtra: String
+-mProfile: ImageView
+---
+#onCreate()
++getStarted()
+}
+
+class UserProfile{
+-user: FirebaseUser
+-mBack: ImageView
+-userID: String
+-reference: DatabaseReference
+-log: Button
+-edit: Button
+--
+#onCreate()
+}
+
+Class ForgotPassword{
+-emailEdit: EditText
+-resetBtn: Button
+-progressBar:ProgressBar
+-auth: FirebaseAuth
+--
+#onCreate()
+-reset()
+}
+
+Class EditProfile {
+-user: FirebaseUser
+-mBack: ImageView
+-userID: String
+-reference: DatabaseReference
+-update: Button
+--
+#onCreate()
+}
+
+Class MyFirebaseMessagingService{
++ token : String
+---
++ onNewToken(in token: String)
++ onMessageReceived(in remoteMessage: RemoteMessage)
+}
+
+Class Map{
+-searchView: SearchView
+-locBtn: ImageView
+-mMap: GoogleMap
+-locationManager: LocationManager
+- REQUEST_LOCATION_PERMISSION: int
+-marker: Marker
+-locationListener: LocationListener
+----
+#onCreate(out savedInstanceState: Bundle)
+#onStop()
++onRequestPermissionsResult(requestCode:int, permissions:@NonNull String[],grantResults:@NonNull int[])
++onMapReady(googleMap: GoogleMap)
+-bitmapDescriptorFromVector(context: Context, vectorResID: int) : BitmapDescriptor
+
+
+}
+User "1"<--- Register
+
+
+
+
+
+package Firebase <<Database>>{
+
+Class FirebaseUser{
+
+}
+
+Class FirebaseAuth{
+--
+'getEmail()
+'sendPasswordResetEmail(in email: String)
+'createUserWithEmailAndPassword(in email: String, in password: String)
+'signInWithEmailAndPassword(in email: String, in password: String)
+}
+
+Class DatabaseReference{
+
+}
+
+Class FirebaseMessagingService{}
+
+FirebaseMessagingService <|------ MyFirebaseMessagingService
+
+FirebaseUser "1" <------ UserProfile
+FirebaseUser "1" <------ EditProfile
+
+FirebaseAuth "1"---- "0..*" Register
+FirebaseAuth "1"<---- Login
+FirebaseAuth "1"<---- ForgotPassword
+
+DatabaseReference "1" <----- Register
+DatabaseReference "1" <----- EditProfile
+DatabaseReference "1" <----- UserProfile
+DatabaseReference "1" <----- Map
+
+}
+
+package GoogleMap <<Database>>{
+ Class GoogleMap{}
+ Class OnMapReadyCallback{}
+ OnMapReadyCallback <|...Map
+ GoogleMap "1" <----- Map
+}
+
+
+
+
+
+
+
+
+@enduml

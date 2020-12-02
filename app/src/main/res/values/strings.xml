@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Parallel</string>
     <string name="sign_up">Sign Up</string>
@@ -14,7 +15,10 @@
     <string name="title_activity_maps">Map</string>
     <string name="nameText">Undefined</string>
     <string name="where_to">Where To</string>
+    <string name="google_maps_key" translatable="false">
 
+        AIzaSyDHZGwLQ2vdnjz9u_zUyyJYWrBF9_rSSms
+    </string>
     <string name="locBtn"> </string>
     <string name="get_started">Get Started</string>
     <string name="logout">logout</string>
@@ -29,6 +33,7 @@
     <string name="your_email_address">Your Email Address</string>
     <string name="reset_password">Reset Password</string>
     <string name="change_profile">Change Profile</string>
+
     <string name="title_activity_time_picker">TimePicker</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -38,4 +43,8 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="title_activity_redirection">Map</string>
+
+
 </resources>

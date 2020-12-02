@@ -35,8 +35,7 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth fAuth;
 
-//On Create : Sends user information to be authorization
-    //OnCreate: Creates a New User and Sends user information to be authorization
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,37 +74,45 @@ public class Login extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                // authenticate the user
-
+                // Authenticate the user to make sure email and password combination exists
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // show the user that they hav logged in successfully and take them to
+                            //the mainactivity
                             Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            startActivity((new Intent(getApplicationContext(), MainActivity.class).putExtra("email", email.replaceAll("[.]","-"))));
-                        } else {
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        } else{
                             Toast.makeText(Login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
-//FirebaseAuth Method
+
                     }
                 });
 
             }
         });
 
+        //If user does not have an account it takes to the register class to create one
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getApplicationContext(), Register.class));
+
             }
         });
+
+        //If user forgot their password or they want to reset their password this takes them to the
+        // forgot password activity
         mforgotText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getApplicationContext(), ForgotPassword.class));
             }
         });
+
     }
 }

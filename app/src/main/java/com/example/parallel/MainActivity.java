@@ -30,34 +30,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mProfile = findViewById(R.id.Profile);
-//        this.emailExtra = getIntent().getStringExtra("email");
-//        this.nameText = findViewById(R.id.nameTextView);
-//        //this.nameText.setText("Hi "+emailExtra);
-//
-//
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference().child("User").child(this.emailExtra);
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.child("fullName").getValue() != null){
-//                    nameText.setText("Hi "+ snapshot.child("fullName").getValue().toString());
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
+
         mProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),UserProfile.class));
             }
         });
+
     }
- // this is the welcome page
 
     public void getStarted(View view) {
         startActivity(new Intent(getApplicationContext(),Map.class));
