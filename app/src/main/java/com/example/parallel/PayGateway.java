@@ -137,7 +137,8 @@ public class PayGateway extends AppCompatActivity {
                 if(confirm != null){
                     try{
                         String paymentDetails = confirm.toJSONObject().toString(4);
-                        startActivity(new Intent(this, PaymentDetails.class)
+                        startActivity(new Intent(getApplicationContext(), PaymentDetails.class)
+                        //startActivity(new Intent(this, PaymentDetails.class)
                                 .putExtra("PaymentDetails", paymentDetails)
                                 .putExtra("PaymentAmount", amt)
                         );

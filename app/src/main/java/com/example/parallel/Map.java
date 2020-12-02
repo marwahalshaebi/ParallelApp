@@ -363,9 +363,11 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                 parkingConfirmation.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        startActivity(new Intent(this, PayGateway.class));
+                        //startActivity(new Intent(, PayGateway.class));
                         //Intent intent = new Intent(this, PayGateway.class);
                         //startActivity(intent);
+                        startActivity(new Intent(getApplicationContext(), PayGateway.class));
+
 
                     }
                 });
@@ -866,5 +868,5 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
 }
 */
 
-}
+
 

@@ -25,10 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
         <!--PayPal-->
         <!--android:theme="@style/Theme.PayPalGateWay"> -->
         <!--<activity android:name=".PaymentDetails"></activity> -->
+<!--
         <activity android:name=".PayGateway">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,8 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--PayPal(end)-->
-
+        PayPal(end)-->
 
         <!-- <activity android:name=".TimePicker"></activity> -->
 
@@ -89,6 +88,18 @@
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
+
+        <!--PayPal-->
+        <!--android:theme="@style/Theme.PayPalGateWay"> -->
+        <!--<activity android:name=".PaymentDetails"></activity> -->
+        <activity android:name=".PayGateway">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--PayPal(end)-->
 
     </application>
 
