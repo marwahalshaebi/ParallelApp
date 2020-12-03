@@ -49,7 +49,7 @@ MyFirebaseMessagingService extends FirebaseMessagingService {
 
         String channelId = "Default";
         NotificationCompat.Builder builder = new  NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                //.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(remoteMessage.getNotification().getTitle())
                 .setContentText(remoteMessage.getNotification().getBody());
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
