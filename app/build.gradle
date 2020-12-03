@@ -4,7 +4,6 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.example.parallel"
@@ -22,19 +21,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    buildFeatures {
-        dataBinding = true
-    }
-
-    dataBinding{
-        enabled = true
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
@@ -49,19 +35,8 @@ dependencies {
     implementation 'com.github.jd-alexander:library:1.1.0'
     implementation 'com.google.firebase:firebase-firestore:22.0.0'
     implementation 'com.google.firebase:firebase-storage:19.2.0'
-    implementation 'androidx.navigation:navigation-fragment:2.2.2'
-    implementation 'androidx.navigation:navigation-ui:2.2.2'
-    implementation 'com.google.firebase:firebase-messaging:21.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-
-    implementation 'com.google.android.gms:play-services-wallet:18.1.1'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:24.1.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
 
 }

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.parallel">
 
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -15,7 +14,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,12 +22,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-
-
-
-        <!-- <activity android:name=".TimePicker"></activity> -->
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -42,9 +34,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_baseline_directions_car_24" />
-
 
 
         <activity android:name=".EditProfile" />
@@ -72,34 +61,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--PayPal-->
-        <!--android:theme="@style/Theme.PayPalGateWay"> -->
-        <!--<activity android:name=".PaymentDetails"></activity> -->
-        <activity android:name=".PayGateway">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <!--PayPal(end)-->
-
-        <service android:name=".MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <receiver android:name=".AlertReceiver" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
-
-        <meta-data
-            android:name="com.google.android.gms.wallet.api.enabled"
-            android:value="true" />
-
     </application>
 
 </manifest>
