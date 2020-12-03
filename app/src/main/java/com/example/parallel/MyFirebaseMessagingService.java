@@ -48,7 +48,9 @@ MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        Log.d("onMessageReceived", "Reached OnMessageReceive: ");
         super.onMessageReceived(remoteMessage);
+
 
         if (remoteMessage.getNotification() != null) {
             String title = remoteMessage.getNotification().getTitle();
@@ -68,5 +70,6 @@ MyFirebaseMessagingService extends FirebaseMessagingService {
             manager.createNotificationChannel(channel);
         }
         manager.notify(0, builder.build());
+        Log.d("NOTIFICATION", "SENT NOTIFICATION ");
     }
 }

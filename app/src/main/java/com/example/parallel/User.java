@@ -79,7 +79,7 @@ public class User {
                                 .baseUrl("https://parallel3004.firebaseapp.com/api/")
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .build();
-
+                        Log.d("TOKEN", "token:  " + token);
                         Api api = retrofit.create(Api.class);
 
                         Call<ResponseBody> call = api.sendNotification(token, title, body);
