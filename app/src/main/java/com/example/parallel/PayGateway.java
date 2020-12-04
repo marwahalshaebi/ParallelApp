@@ -45,6 +45,7 @@ public class PayGateway extends AppCompatActivity {
     EditText editAmount;
     Button timeBtn;
     Button payBtn;
+    float parkingDuration;
 
 
     //set payment as test/sandbox mode NOT production ready
@@ -75,10 +76,14 @@ public class PayGateway extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         tvTime.setText(hourOfDay + ":" + minute);
+                        parkingDuration = (float) 0.0;
                         float parkingRate = 0.25f;
                         float parkingCost = ((minute - minNow) < 0) ? ((minute - minNow + 60) + ((hourOfDay - hourNow - 1) * 60)) * parkingRate : ((minute - minNow) + ((hourOfDay - hourNow) * 60)) * parkingRate;
                         //tvPay.setText(String.format("$ " + "%.2f", parkingCost));
+                        //float parkingCost = 25f;
+                        parkingDuration = parkingCost / parkingRate;
                         tvPay.setText(String.valueOf(parkingCost));
+                        //tvPay.setText(String.valueOf(parkingCost));
 
                     }
                 },hour, minute,android.text.format.DateFormat.is24HourFormat(context));
@@ -139,8 +144,9 @@ public class PayGateway extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AlertReceiver.class);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, 0);
                 long timeAtButtonClick = System.currentTimeMillis();
-                long time10 = 10 *1000;
-                alarmManager.set(AlarmManager.RTC_WAKEUP,timeAtButtonClick+time10,pendingIntent);
+                //long time10 = 10 *1000;
+                long alarmTriggerTime = (long) (parkingDuration - 5) * 60000; // converting parking duration to milliseconds - 5 mins
+                alarmManager.set(AlarmManager.RTC_WAKEUP,timeAtButtonClick+alarmTriggerTime,pendingIntent);
 
                 Toast.makeText(this, "PAYMENT APPROVED.", Toast.LENGTH_LONG).show();
                 PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
