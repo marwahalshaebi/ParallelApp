@@ -14,13 +14,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
-
-import org.json.JSONException;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
@@ -37,6 +36,7 @@ public class PayGateway extends AppCompatActivity {
     int hourNow = now.getHour();
     int minNow = now.getMinute();
     String amt = " ";
+    String email;
     Context context = this;
     public static final int PAYPAL_REQUEST_CODE = 1111;
     TextView tvTime;
@@ -45,6 +45,7 @@ public class PayGateway extends AppCompatActivity {
     Button timeBtn;
     Button payBtn;
     float parkingDuration;
+    FirebaseAuth fAuth;
 
 
     //set payment as test/sandbox mode NOT production ready
@@ -57,6 +58,8 @@ public class PayGateway extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_gateway);
+        fAuth = FirebaseAuth.getInstance();
+        email = fAuth.getCurrentUser().getEmail();
 
         tvTime = (TextView)findViewById(R.id.timeTextView);
         //tvPay = (TextView)findViewById(R.id.payTextView);
@@ -74,7 +77,7 @@ public class PayGateway extends AppCompatActivity {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tvTime.setText(hourOfDay + ":" + minute);
+                        //tvTime.setText(hourOfDay + ":" + minute);
                         parkingDuration = (float) 0.0;
                         float parkingRate = 0.25f;
                         float parkingCost = ((minute - minNow) < 0) ? ((minute - minNow + 60) + ((hourOfDay - hourNow - 1) * 60)) * parkingRate : ((minute - minNow) + ((hourOfDay - hourNow) * 60)) * parkingRate;
@@ -150,16 +153,18 @@ public class PayGateway extends AppCompatActivity {
                 Toast.makeText(this, "PAYMENT APPROVED.", Toast.LENGTH_LONG).show();
                 PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
                 if(confirm != null){
-                    try{
-                        String paymentDetails = confirm.toJSONObject().toString(4);
-                        startActivity(new Intent(this, PaymentDetails.class)
-                                .putExtra("PaymentDetails", paymentDetails)
-                                .putExtra("PaymentAmount", amt)
-                        );
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
-                    } catch (JSONException e){
-                        e.printStackTrace();
-                    }
+//                    try{
+////                        String paymentDetails = confirm.toJSONObject().toString(4);
+////                        startActivity(new Intent(this, PaymentDetails.class)
+////                                .putExtra("PaymentDetails", paymentDetails)
+////                                .putExtra("PaymentAmount", amt)
+////                        );
+//
+//                    } catch (JSONException e){
+//                        e.printStackTrace();
+//                    }
                 }
             }else if(resultCode == Activity.RESULT_CANCELED){
                 Toast.makeText(this, "PAYMENT DENIED.", Toast.LENGTH_SHORT).show();
