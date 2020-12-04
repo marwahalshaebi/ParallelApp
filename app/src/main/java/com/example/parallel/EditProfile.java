@@ -39,7 +39,7 @@ public class EditProfile extends AppCompatActivity {
     FirebaseFirestore fStore;
     StorageReference storageReference;
     //To be used to give user the ability to create a Profile image
-    private ImageView profileImage;
+    private de.hdodenhof.circleimageview.CircleImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

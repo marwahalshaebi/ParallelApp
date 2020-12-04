@@ -34,7 +34,7 @@ public class UserProfile extends AppCompatActivity {
     Button log, edit;
 
     //To be used later for user Profile image
-    ImageView profileImage;
+    de.hdodenhof.circleimageview.CircleImageView profileImage;
 
     private static final int GALLERY_INTENT_CODE = 1023 ;
 
