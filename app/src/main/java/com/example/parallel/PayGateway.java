@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -42,7 +41,7 @@ public class PayGateway extends AppCompatActivity {
     public static final int PAYPAL_REQUEST_CODE = 1111;
     TextView tvTime;
     TextView tvPay;
-    EditText editAmount;
+    TextView editAmount;
     Button timeBtn;
     Button payBtn;
     float parkingDuration;
@@ -107,7 +106,7 @@ public class PayGateway extends AppCompatActivity {
 
         payBtn = (Button)findViewById(R.id.payBtn);
         //editTextNumberDecimal = (EditText)findViewById(R.id.editText);
-        editAmount = (EditText)findViewById(R.id.editAmount);
+        editAmount = findViewById(R.id.editAmount);
         //textView = (TextView)findViewById(R.id.textView);
 
         payBtn.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +167,9 @@ public class PayGateway extends AppCompatActivity {
                 Toast.makeText(this, "Invalid", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    public void goBack (View view) {
+        startActivity(new Intent(getApplicationContext(),Map.class));
     }
 
     @Override

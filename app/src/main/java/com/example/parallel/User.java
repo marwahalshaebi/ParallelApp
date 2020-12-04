@@ -2,13 +2,11 @@ package com.example.parallel;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import okhttp3.Response;
+import androidx.annotation.NonNull;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +29,7 @@ public class User {
         this.email = email;
         this.licenseNumber = licenseNumber;
 
+
     }
 
 
@@ -49,10 +48,11 @@ public class User {
         return fullName;
     }
 
+
+
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-
 
     public  void sendNotification(final String title, final String body){
 
