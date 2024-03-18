@@ -1,2 +1,2 @@
-# comp3004_Project
-This is a Git Repo for 3004's project, weekly logs will be uploaded to Dev_logs. 
+
+This is a Git Repo for our software engineering project, weekly logs and Application's life cycle will be uploaded to Dev_logs. 
